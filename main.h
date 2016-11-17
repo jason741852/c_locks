@@ -14,12 +14,11 @@ int workOutsideCS;
 int workInsideCS;
 int testID;
 pthread_mutex_t count_mutex;
-
+pthread_spinlock_t count_spin;
+my_spinlock_t count_myspin;
 
 unsigned long long timespecDiff(struct timespec *timeA_p, struct timespec *timeB_p)
 {
   return ((timeA_p->tv_sec * 1000000000) + timeA_p->tv_nsec) -
            ((timeB_p->tv_sec * 1000000000) + timeB_p->tv_nsec);
 }
-
-char** tokenizer(char*);// Split commands into tokens

@@ -10,7 +10,8 @@
 #include "atomic_ops.h"
 
 struct my_mutex_struct {
-  /* FILL ME IN! */
+  int lock;
+  unsigned int thread_ID;
 };
 
 
@@ -31,7 +32,8 @@ int my_mutex_trylock(my_mutex_t *lock);
 /*Spinlock Starts here*/
 
 struct my_spinlock_struct {
-  /* FILL ME IN! */
+  volatile unsigned long lock_bit;
+  unsigned int thread_ID;
 };
 
 typedef struct my_spinlock_struct my_spinlock_t;
