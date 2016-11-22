@@ -6,12 +6,15 @@
 
 #ifndef _m_SYNC_H_
 #define _m_SYNC_H_
+#define MIN_DELAY 500
+#define MAX_DELAY 200000
 
 #include "atomic_ops.h"
 
 struct my_mutex_struct {
-  int lock;
+  volatile unsigned long lock_bit;
   unsigned int thread_ID;
+  int recursive_counter;
 };
 
 
@@ -34,6 +37,7 @@ int my_mutex_trylock(my_mutex_t *lock);
 struct my_spinlock_struct {
   volatile unsigned long lock_bit;
   unsigned int thread_ID;
+  int recursive_counter;
 };
 
 typedef struct my_spinlock_struct my_spinlock_t;
@@ -50,7 +54,10 @@ int my_spinlock_trylock(my_spinlock_t *lock);
 /*queuelock Starts here*/
 
 struct my_queuelock_struct {
-  /* FILL ME IN! */
+  volatile unsigned long queue_Num;
+  volatile unsigned long ticket_Num;
+  volatile unsigned long lock_bit;
+  unsigned int thread_ID;
 };
 
 typedef struct my_queuelock_struct my_queuelock_t;
