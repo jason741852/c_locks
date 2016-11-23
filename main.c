@@ -166,6 +166,7 @@ void* mypthreadQueueTest(){
       localCount++;
     }
 
+
     my_queuelock_lock(&count_myqueue);
     for(k=0;k<workInsideCS;k++)/*How much work is done inside the CS*/
     {
@@ -179,7 +180,6 @@ void* mypthreadQueueTest(){
 
 int runTest(int testID)
 {
-
 /*You must create all data structures and threads for you experiments*/
 
 if (testID == 0 || testID == 1 ) /*Pthread Mutex*/
@@ -188,6 +188,7 @@ if (testID == 0 || testID == 1 ) /*Pthread Mutex*/
 	struct timespec start;
 	struct timespec stop;
 	unsigned long long result; //64 bit integer
+  FILE* mutex_lock = fopen("mutex_lock.txt", "w");
 
 	pthread_t *threads = (pthread_t* )malloc(sizeof(pthread_t)*numThreads);
 	int i;
@@ -214,7 +215,8 @@ if (testID == 0 || testID == 1 ) /*Pthread Mutex*/
 	printf("Threaded Run Pthread (Mutex) Total Count: %lld\n", c);
 	result=timespecDiff(&stop,&start);
 	printf("Pthread Mutex time(ms): %llu\n",result/1000000);
-
+  fprintf(mutex_lock,"%llu\n",result/1000000);
+  fclose(mutex_lock);
 }
 
 if(testID == 0 || testID == 2) /*Pthread Spinlock*/
@@ -223,6 +225,7 @@ if(testID == 0 || testID == 2) /*Pthread Spinlock*/
 	struct timespec start;
 	struct timespec stop;
 	unsigned long long result; //64 bit integer
+  FILE* spin_lock = fopen("spin_lock.txt", "w");
   pthread_spin_init(&count_spin,0);
 
 	pthread_t *threads = (pthread_t* )malloc(sizeof(pthread_t)*numThreads);
@@ -251,6 +254,8 @@ if(testID == 0 || testID == 2) /*Pthread Spinlock*/
 	result=timespecDiff(&stop,&start);
   pthread_spin_destroy(&count_spin);
 	printf("Pthread Spin time(ms): %llu\n",result/1000000);
+  fprintf(spin_lock,"%llu\n",result/1000000);
+  fclose(spin_lock);
 }
 
 if(testID == 0 || testID == 3) /*MySpinlockTAS*/
@@ -259,6 +264,7 @@ if(testID == 0 || testID == 3) /*MySpinlockTAS*/
   struct timespec start;
   struct timespec stop;
   unsigned long long result; //64 bit integer
+  FILE* my_spinTAS_lock = fopen("my_spinTAS_lock.txt", "w");
   my_spinlock_init(&count_myspin);
 
   pthread_t *threads = (pthread_t* )malloc(sizeof(pthread_t)*numThreads);
@@ -286,6 +292,8 @@ if(testID == 0 || testID == 3) /*MySpinlockTAS*/
   result=timespecDiff(&stop,&start);
   my_spinlock_destroy(&count_myspin);
   printf("Pthread mySpinTAS time(ms): %llu\n",result/1000000);
+  fprintf(my_spinTAS_lock,"%llu\n",result/1000000);
+  fclose(my_spinTAS_lock);
 }
 
 if(testID == 0 || testID == 4) /*MySpinlockTTAS*/
@@ -294,6 +302,7 @@ if(testID == 0 || testID == 4) /*MySpinlockTTAS*/
   struct timespec start;
   struct timespec stop;
   unsigned long long result; //64 bit integer
+  FILE* my_spinTTAS_lock = fopen("my_spinTTAS_lock.txt", "w");
   my_spinlock_init(&count_myspin);
 
   pthread_t *threads = (pthread_t* )malloc(sizeof(pthread_t)*numThreads);
@@ -321,6 +330,8 @@ if(testID == 0 || testID == 4) /*MySpinlockTTAS*/
   result=timespecDiff(&stop,&start);
   my_spinlock_destroy(&count_myspin);
   printf("Pthread mySpinTTAS time(ms): %llu\n",result/1000000);
+  fprintf(my_spinTTAS_lock,"%llu\n",result/1000000);
+  fclose(my_spinTTAS_lock);
 }
 
 if(testID == 0 || testID == 5) /*MyMutexlockTTAS*/
@@ -329,6 +340,7 @@ if(testID == 0 || testID == 5) /*MyMutexlockTTAS*/
   struct timespec start;
   struct timespec stop;
   unsigned long long result; //64 bit integer
+  FILE* my_mutex_lock = fopen("my_mutex_lock.txt", "w");
   my_mutex_init(&count_mymutex);
 
   pthread_t *threads = (pthread_t* )malloc(sizeof(pthread_t)*numThreads);
@@ -356,14 +368,17 @@ if(testID == 0 || testID == 5) /*MyMutexlockTTAS*/
   result=timespecDiff(&stop,&start);
   my_mutex_destroy(&count_mymutex);
   printf("Pthread myMutex time(ms): %llu\n",result/1000000);
+  fprintf(my_mutex_lock,"%llu\n",result/1000000);
+  fclose(my_mutex_lock);
 }
 
-if(testID == 0 || testID == 6) /*MySpinlockTAS*/
+if(testID == 0 || testID == 6) /*MyQueuelock*/
 {
   c=0;
   struct timespec start;
   struct timespec stop;
   unsigned long long result; //64 bit integer
+  FILE* my_queue_lock = fopen("my_queue_lock.txt", "w");
   my_queuelock_init(&count_myqueue);
 
   pthread_t *threads = (pthread_t* )malloc(sizeof(pthread_t)*numThreads);
@@ -387,10 +402,12 @@ if(testID == 0 || testID == 6) /*MySpinlockTAS*/
   }
   clock_gettime(CLOCK_MONOTONIC, &stop);
 
-  printf("Threaded Run Pthread (mySpinTAS) Total Count: %lld\n", c);
+  printf("Threaded Run Pthread (myQueueLock) Total Count: %lld\n", c);
   result=timespecDiff(&stop,&start);
   my_queuelock_destroy(&count_myqueue);
-  printf("Pthread mySpinTAS time(ms): %llu\n",result/1000000);
+  printf("Pthread myQueueLock time(ms): %llu\n",result/1000000);
+  fprintf(my_queue_lock,"%llu\n",result/1000000);
+  fclose(my_queue_lock);
 }
 	return 0;
 }

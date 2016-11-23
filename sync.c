@@ -132,8 +132,6 @@ int my_mutex_lock(my_mutex_t *lock)
 
 int my_mutex_trylock(my_mutex_t *lock)
 {
-  int current_pos;
-  int next_pos;
 }
 
 /*
@@ -145,26 +143,27 @@ int my_queuelock_init(my_queuelock_t *lock)
   lock->queue_Num = 0;
   lock->ticket_Num = 0;
   lock->thread_ID = 0;
-  lock->lock_bit = 0;
   return 0;
 }
 
 int my_queuelock_destroy(my_queuelock_t *lock)
 {
-  return 0;
+  if(lock->queue_Num == lock->ticket_Num) return 0;
+  else return -1;
 }
 
 int my_queuelock_unlock(my_queuelock_t *lock)
 {
   lock->thread_ID = 0;
-  lock->lock_bit = 0;
-  lock->queue_Num++;
+  lock->queue_Num = lock->queue_Num+1;
   return 0;
 }
 
 int my_queuelock_lock(my_queuelock_t *lock)
 {
-  unsigned long queue_Pos = cas(&(lock->ticket_Num),lock->ticket_Num,lock->ticket_Num++);
+  //printf("before ticket_Num= %lu \n",lock->ticket_Num);
+  unsigned long queue_Pos = cas(&(lock->ticket_Num),lock->ticket_Num,lock->ticket_Num+1);
+  //printf("after ticket_Num= %lu , queue_Pos= %lu\n",lock->ticket_Num, queue_Pos);
   //printf(" queue_Pos= %lu, ticket_Num= %lu \n",queue_Pos,lock->ticket_Num);
   // while(1){
   //   while(queue_Pos != lock->queue_Num && lock->lock_bit == 1){
@@ -176,7 +175,10 @@ int my_queuelock_lock(my_queuelock_t *lock)
   //   }
   // }
   while(1){
-    while(queue_Pos != lock->queue_Num){}
+    while(queue_Pos != lock->queue_Num){
+       //printf("queue_Pos= %lu queue_Num= %lu \n",queue_Pos,lock->queue_Num);
+    }
+    //printf("%lu ",lock->queue_Num);
     lock->thread_ID = pthread_self();
     return 0;
   }

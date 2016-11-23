@@ -56,7 +56,6 @@ int my_spinlock_trylock(my_spinlock_t *lock);
 struct my_queuelock_struct {
   volatile unsigned long queue_Num;
   volatile unsigned long ticket_Num;
-  volatile unsigned long lock_bit;
   unsigned int thread_ID;
 };
 
