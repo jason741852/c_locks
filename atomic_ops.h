@@ -13,5 +13,10 @@ static inline unsigned long cas(volatile unsigned long* ptr, unsigned long old, 
     return __sync_val_compare_and_swap(ptr, old, _new);
 }
 
+static inline unsigned long fetch_and_add(volatile unsigned long* ptr, unsigned long _increment)
+{
+  return __sync_fetch_and_add(ptr,_increment);
+}
+
 
 #endif // __ATOMIC_OPS_H__
