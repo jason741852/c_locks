@@ -184,21 +184,22 @@ int runTest(int testID)
 
 if (testID == 0 || testID == 1 ) /*Pthread Mutex*/
 {
-  FILE* mutex_lock = fopen("mutex_lock.txt", "w");
-  int t = 1;
-  for (t; t<=16; t++){
+  FILE* mutex_lock = fopen("mutex_lock_-o_-c.txt", "w");
+  int o = 0;
+  for (o; o<=10; o++){
+    workOutsideCS = o*10;
+    workInsideCS = o*10;
     c=0;
     struct timespec start;
     struct timespec stop;
     unsigned long long result; //64 bit integer
 
-    pthread_t *threads = (pthread_t* )malloc(sizeof(pthread_t)*t);
-    //pthread_t *threads = (pthread_t* )malloc(sizeof(pthread_t)*numThreads);
+    pthread_t *threads = (pthread_t* )malloc(sizeof(pthread_t)*numThreads);
     int i;
     int rt;
 
     clock_gettime(CLOCK_MONOTONIC, &start);
-    for(i=0;i<t;i++)
+    for(i=0;i<numThreads;i++)
     {
 
      if( rt=(pthread_create( threads+i, NULL, &pthreadMutexTest, NULL)) )
@@ -209,7 +210,7 @@ if (testID == 0 || testID == 1 ) /*Pthread Mutex*/
 
     }
 
-    for(i=0;i<t;i++) //Wait for all threads to finish
+    for(i=0;i<numThreads;i++) //Wait for all threads to finish
     {
        pthread_join(threads[i], NULL);
     }
@@ -226,22 +227,24 @@ if (testID == 0 || testID == 1 ) /*Pthread Mutex*/
 
 if(testID == 0 || testID == 2) /*Pthread Spinlock*/
 {
-    FILE* spin_lock = fopen("spin_lock.txt", "w");
+    FILE* spin_lock = fopen("spin_lock_-o_-c.txt", "w");
 
-    int t = 1;
-    for (t; t<=16; t++){
+    int o = 0;
+  for (o; o<=10; o++){
+    workOutsideCS = o*10;
+    workInsideCS = o*10;
     c=0;
   	struct timespec start;
   	struct timespec stop;
   	unsigned long long result; //64 bit integer
     pthread_spin_init(&count_spin,0);
 
-  	pthread_t *threads = (pthread_t* )malloc(sizeof(pthread_t)*t);
+  	pthread_t *threads = (pthread_t* )malloc(sizeof(pthread_t)*numThreads);
   	int i;
   	int rt;
 
   	clock_gettime(CLOCK_MONOTONIC, &start);
-  	for(i=0;i<t;i++)
+  	for(i=0;i<numThreads;i++)
   	{
 
   	 if( rt=(pthread_create( threads+i, NULL, &pthreadSpinTest, NULL)) )
@@ -252,7 +255,7 @@ if(testID == 0 || testID == 2) /*Pthread Spinlock*/
 
   	}
 
-  	for(i=0;i<t;i++) //Wait for all threads to finish
+  	for(i=0;i<numThreads;i++) //Wait for all threads to finish
   	{
   		 pthread_join(threads[i], NULL);
   	}
@@ -269,22 +272,24 @@ if(testID == 0 || testID == 2) /*Pthread Spinlock*/
 
 if(testID == 0 || testID == 3) /*MySpinlockTAS*/
 {
-  FILE* my_spinTAS_lock = fopen("my_spinTAS_lock.txt", "w");
+  FILE* my_spinTAS_lock = fopen("my_spinTAS_lock_-o_-c.txt", "w");
 
-  int t = 1;
-  for(t;t<=16;t++){
+  int o = 0;
+  for (o; o<=10; o++){
+    workOutsideCS = o*10;
+    workInsideCS = o*10;
     c=0;
     struct timespec start;
     struct timespec stop;
     unsigned long long result; //64 bit integer
     my_spinlock_init(&count_myspin);
 
-    pthread_t *threads = (pthread_t* )malloc(sizeof(pthread_t)*t);
+    pthread_t *threads = (pthread_t* )malloc(sizeof(pthread_t)*numThreads);
     int i;
     int rt;
 
     clock_gettime(CLOCK_MONOTONIC, &start);
-    for(i=0;i<t;i++)
+    for(i=0;i<numThreads;i++)
     {
        if( rt=(pthread_create( threads+i, NULL, &mypthreadSpinTASTest, NULL)) )
       {
@@ -294,7 +299,7 @@ if(testID == 0 || testID == 3) /*MySpinlockTAS*/
 
     }
 
-    for(i=0;i<t;i++) //Wait for all threads to finish
+    for(i=0;i<numThreads;i++) //Wait for all threads to finish
     {
        pthread_join(threads[i], NULL);
     }
@@ -311,22 +316,24 @@ if(testID == 0 || testID == 3) /*MySpinlockTAS*/
 
 if(testID == 0 || testID == 4) /*MySpinlockTTAS*/
 {
-  FILE* my_spinTTAS_lock = fopen("my_spinTTAS_lock.txt", "w");
+  FILE* my_spinTTAS_lock = fopen("my_spinTTAS_lock_-o_-c.txt", "w");
 
-  int t = 1;
-  for (t;t<=16;t++){
+  int o = 0;
+  for (o; o<=10; o++){
+    workOutsideCS = o*10;
+    workInsideCS = o*10;
     c=0;
     struct timespec start;
     struct timespec stop;
     unsigned long long result; //64 bit integer
     my_spinlock_init(&count_myspin);
 
-    pthread_t *threads = (pthread_t* )malloc(sizeof(pthread_t)*t);
+    pthread_t *threads = (pthread_t* )malloc(sizeof(pthread_t)*numThreads);
     int i;
     int rt;
 
     clock_gettime(CLOCK_MONOTONIC, &start);
-    for(i=0;i<t;i++)
+    for(i=0;i<numThreads;i++)
     {
        if( rt=(pthread_create( threads+i, NULL, &mypthreadSpinTTASTest, NULL)) )
       {
@@ -336,7 +343,7 @@ if(testID == 0 || testID == 4) /*MySpinlockTTAS*/
 
     }
 
-    for(i=0;i<t;i++) //Wait for all threads to finish
+    for(i=0;i<numThreads;i++) //Wait for all threads to finish
     {
        pthread_join(threads[i], NULL);
     }
@@ -353,22 +360,24 @@ if(testID == 0 || testID == 4) /*MySpinlockTTAS*/
 
 if(testID == 0 || testID == 5) /*MyMutexlockTTAS*/
 {
-  FILE* my_mutex_lock = fopen("my_mutex_lock.txt", "w");
+  FILE* my_mutex_lock = fopen("my_mutex_lock_-o_-c.txt", "w");
 
-  int t = 1;
-  for(t;t<=16;t++){
+  int o = 0;
+  for (o; o<=10; o++){
+    workOutsideCS = o*10;
+    workInsideCS = o*10;
     c=0;
     struct timespec start;
     struct timespec stop;
     unsigned long long result; //64 bit integer
     my_mutex_init(&count_mymutex);
 
-    pthread_t *threads = (pthread_t* )malloc(sizeof(pthread_t)*t);
+    pthread_t *threads = (pthread_t* )malloc(sizeof(pthread_t)*numThreads);
     int i;
     int rt;
 
     clock_gettime(CLOCK_MONOTONIC, &start);
-    for(i=0;i<t;i++)
+    for(i=0;i<numThreads;i++)
     {
        if( rt=(pthread_create( threads+i, NULL, &mypthreadMutexTest, NULL)) )
       {
@@ -378,7 +387,7 @@ if(testID == 0 || testID == 5) /*MyMutexlockTTAS*/
 
     }
 
-    for(i=0;i<t;i++) //Wait for all threads to finish
+    for(i=0;i<numThreads;i++) //Wait for all threads to finish
     {
        pthread_join(threads[i], NULL);
     }
@@ -395,22 +404,24 @@ if(testID == 0 || testID == 5) /*MyMutexlockTTAS*/
 
 if(testID == 0 || testID == 6) /*MyQueuelock*/
 {
-  FILE* my_queue_lock = fopen("my_queue_lock.txt", "w");
+  FILE* my_queue_lock = fopen("my_queue_lock_-o_-c.txt", "w");
 
-  int t = 1;
-  for(t;t<=8;t++){
+  int o = 0;
+  for (o; o<=10; o++){
+    workOutsideCS = o*10;
+    workInsideCS = o*10;
     c=0;
     struct timespec start;
     struct timespec stop;
     unsigned long long result; //64 bit integer
     my_queuelock_init(&count_myqueue);
 
-    pthread_t *threads = (pthread_t* )malloc(sizeof(pthread_t)*t);
+    pthread_t *threads = (pthread_t* )malloc(sizeof(pthread_t)*numThreads);
     int i;
     int rt;
 
     clock_gettime(CLOCK_MONOTONIC, &start);
-    for(i=0;i<t;i++)
+    for(i=0;i<numThreads;i++)
     {
        if( rt=(pthread_create( threads+i, NULL, &mypthreadQueueTest, NULL)) )
       {
@@ -420,7 +431,7 @@ if(testID == 0 || testID == 6) /*MyQueuelock*/
 
     }
 
-    for(i=0;i<t;i++) //Wait for all threads to finish
+    for(i=0;i<numThreads;i++) //Wait for all threads to finish
     {
        pthread_join(threads[i], NULL);
     }
