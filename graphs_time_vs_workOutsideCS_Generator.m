@@ -1,7 +1,7 @@
 A = importdata('mutex_lock_-o.txt');
 B = importdata('spin_lock_-o.txt');
-C = importdata('my_spinTAS_lock_-o.txt');
-D = importdata('my_mutex_lock_-o.txt');
+C = importdata('my_mutex_lock_-o.txt');
+D = importdata('my_spinTAS_lock_-o.txt');
 E = importdata('my_spinTTAS_lock_-o.txt');
 F = importdata('my_queue_lock_-o.txt');
 
@@ -37,5 +37,5 @@ plot(x1,d,'-o','Color','cyan');
 plot(x1,e,'-o','Color','green');
 plot(x1,f,'-o','Color','blue');
 
-l = legend('pthr mutex','pthr spin','mySpinTAS','mySpinTTAS','myMutex','myQueue','Location','southeastoutside');
+l = legend('pthr mutex','pthr spin','myMutex','mySpinTAS','mySpinTTAS','myQueue','Location','southeastoutside');
 set(l,'FontSize',20);

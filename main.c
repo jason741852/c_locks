@@ -192,8 +192,6 @@ if (testID == 0 || testID == 1 ) /*Pthread Mutex*/
   FILE* mutex_lock = fopen("mutex_lock_-o_-c.txt", "w");
   int o = 0;
   for (o; o<=0; o++){
-    workOutsideCS =0;
-    workInsideCS = 1;
     c=0;
     struct timespec start;
     struct timespec stop;
@@ -236,8 +234,6 @@ if(testID == 0 || testID == 2) /*Pthread Spinlock*/
 
     int o = 0;
   for (o; o<=10; o++){
-    workOutsideCS = o*10;
-    workInsideCS = o*10;
     c=0;
   	struct timespec start;
   	struct timespec stop;
@@ -281,8 +277,6 @@ if(testID == 0 || testID == 3) /*MySpinlockTAS*/
 
   int o = 0;
   for (o; o<=0; o++){
-    workOutsideCS = 0;
-    workInsideCS = 1;
     c=0;
     struct timespec start;
     struct timespec stop;
@@ -325,8 +319,6 @@ if(testID == 0 || testID == 4) /*MySpinlockTTAS*/
 
   int o = 0;
   for (o; o<=10; o++){
-    workOutsideCS = o*10;
-    workInsideCS = o*10;
     c=0;
     struct timespec start;
     struct timespec stop;
@@ -369,8 +361,6 @@ if(testID == 0 || testID == 5) /*MyMutexlockTTAS*/
 
   int o = 0;
   for (o; o<=10; o++){
-    workOutsideCS = o*10;
-    workInsideCS = o*10;
     c=0;
     struct timespec start;
     struct timespec stop;
@@ -413,8 +403,6 @@ if(testID == 0 || testID == 6) /*MyQueuelock*/
 
   int o = 0;
   for (o; o<=10; o++){
-    workOutsideCS = o*10;
-    workInsideCS = o*10;
     c=0;
     struct timespec start;
     struct timespec stop;

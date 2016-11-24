@@ -57,14 +57,6 @@ int my_spinlock_lockTAS(my_spinlock_t *lock)
 
 int my_spinlock_lockTTAS(my_spinlock_t *lock)
 {
-  // while(1){
-  //   while(lock->lock_bit==1){}; // spin until lock_bit == 0
-  //   if(tas(&(lock->lock_bit))==0){
-  //     lock->thread_ID = pthread_self();
-  //     return 0;
-  //   }
-  //
-  // }
   while(1){
     while(lock->lock_bit==1 && lock->thread_ID != pthread_self()){}; // spin until lock_bit == 0
     if(tas(&(lock->lock_bit))==0){
