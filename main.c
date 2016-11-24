@@ -45,6 +45,7 @@ void *pthreadMutexTest()
     }
 
 
+
 }
 
 void *pthreadSpinTest()
@@ -91,10 +92,14 @@ void *mypthreadSpinTASTest(){
     my_spinlock_lockTAS(&count_myspin);
     for(k=0;k<workInsideCS;k++)/*How much work is done inside the CS*/
     {
-      //printf("c= %llu\n",c);
       c++;
+
     }
     my_spinlock_unlock(&count_myspin);
+
+
+
+
 
     }
 }
@@ -186,9 +191,9 @@ if (testID == 0 || testID == 1 ) /*Pthread Mutex*/
 {
   FILE* mutex_lock = fopen("mutex_lock_-o_-c.txt", "w");
   int o = 0;
-  for (o; o<=10; o++){
-    workOutsideCS = o*10;
-    workInsideCS = o*10;
+  for (o; o<=0; o++){
+    workOutsideCS =0;
+    workInsideCS = 1;
     c=0;
     struct timespec start;
     struct timespec stop;
@@ -275,9 +280,9 @@ if(testID == 0 || testID == 3) /*MySpinlockTAS*/
   FILE* my_spinTAS_lock = fopen("my_spinTAS_lock_-o_-c.txt", "w");
 
   int o = 0;
-  for (o; o<=10; o++){
-    workOutsideCS = o*10;
-    workInsideCS = o*10;
+  for (o; o<=0; o++){
+    workOutsideCS = 0;
+    workInsideCS = 1;
     c=0;
     struct timespec start;
     struct timespec stop;
