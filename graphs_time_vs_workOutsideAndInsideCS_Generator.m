@@ -1,9 +1,9 @@
-A = importdata('mutex_lock_-o_-c.txt');
-B = importdata('spin_lock_-o_-c.txt');
-C = importdata('my_mutex_lock_-o_-c.txt');
-D = importdata('my_spinTAS_lock_-o_-c.txt');
-E = importdata('my_spinTTAS_lock_-o_-c.txt');
-F = importdata('my_queue_lock_-o_-c.txt');
+A = importdata('Time_data/mutex_lock_-o_-c.txt');
+B = importdata('Time_data/spin_lock_-o_-c.txt');
+C = importdata('Time_data/my_mutex_lock_-o_-c.txt');
+D = importdata('Time_data/my_spinTAS_lock_-o_-c.txt');
+E = importdata('Time_data/my_spinTTAS_lock_-o_-c.txt');
+F = importdata('Time_data/my_queue_lock_-o_-c.txt');
 
 a=A';
 b=B';
