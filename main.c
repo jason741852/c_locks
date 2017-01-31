@@ -189,7 +189,7 @@ int runTest(int testID)
 
 if (testID == 0 || testID == 1 ) /*Pthread Mutex*/
 {
-  FILE* mutex_lock = fopen("mutex_lock_-o_-c.txt", "w");
+  FILE* mutex_lock = fopen("Time_data/mutex_lock_-o_-c.txt", "w");
   int o = 0;
   for (o; o<=0; o++){
     c=0;
@@ -230,7 +230,7 @@ if (testID == 0 || testID == 1 ) /*Pthread Mutex*/
 
 if(testID == 0 || testID == 2) /*Pthread Spinlock*/
 {
-    FILE* spin_lock = fopen("spin_lock_-o_-c.txt", "w");
+    FILE* spin_lock = fopen("Time_data/spin_lock_-o_-c.txt", "w");
 
     int o = 0;
   for (o; o<=10; o++){
@@ -273,7 +273,7 @@ if(testID == 0 || testID == 2) /*Pthread Spinlock*/
 
 if(testID == 0 || testID == 3) /*MySpinlockTAS*/
 {
-  FILE* my_spinTAS_lock = fopen("my_spinTAS_lock_-o_-c.txt", "w");
+  FILE* my_spinTAS_lock = fopen("Time_data/my_spinTAS_lock_-o_-c.txt", "w");
 
   int o = 0;
   for (o; o<=0; o++){
@@ -315,7 +315,7 @@ if(testID == 0 || testID == 3) /*MySpinlockTAS*/
 
 if(testID == 0 || testID == 4) /*MySpinlockTTAS*/
 {
-  FILE* my_spinTTAS_lock = fopen("my_spinTTAS_lock_-o_-c.txt", "w");
+  FILE* my_spinTTAS_lock = fopen("Time_data/my_spinTTAS_lock_-o_-c.txt", "w");
 
   int o = 0;
   for (o; o<=10; o++){
@@ -357,7 +357,7 @@ if(testID == 0 || testID == 4) /*MySpinlockTTAS*/
 
 if(testID == 0 || testID == 5) /*MyMutexlockTTAS*/
 {
-  FILE* my_mutex_lock = fopen("my_mutex_lock_-o_-c.txt", "w");
+  FILE* my_mutex_lock = fopen("Time_data/my_mutex_lock_-o_-c.txt", "w");
 
   int o = 0;
   for (o; o<=10; o++){
@@ -399,7 +399,7 @@ if(testID == 0 || testID == 5) /*MyMutexlockTTAS*/
 
 if(testID == 0 || testID == 6) /*MyQueuelock*/
 {
-  FILE* my_queue_lock = fopen("my_queue_lock_-o_-c.txt", "w");
+  FILE* my_queue_lock = fopen("Time_data/my_queue_lock_-o_-c.txt", "w");
 
   int o = 0;
   for (o; o<=10; o++){
